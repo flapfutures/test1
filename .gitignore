@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment secrets — NEVER commit these
+.env
+.env.*
+!.env.example
+
+# Local / Replit internals
+.local/
+.upm/
+.config/
+.cache/
+.replit
+replit.nix
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+/tmp/
+
+# Build artifacts (keep dist/ — needed for production deploy)
+# dist/  ← intentionally NOT excluded so VPS deploy files are tracked
+
+# Python
+venv/
+.venv/
