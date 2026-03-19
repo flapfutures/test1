@@ -1,18 +1,18 @@
-# Large Files (>400KB) — Not in Git
+# Large Files — Compressed in Repo
 
-These files exceeded the upload limit and must be obtained from the production VPS or built locally.
+The two large dist files are stored compressed (.gz) to fit within git upload limits.
+Run `bash setup.sh` after cloning to decompress them automatically.
 
-## Files:
-- `dist/index.cjs` (1083KB)
-- `dist/public/assets/index-BpzWBTTq.js` (1366KB)
-- `dist/public/images/wallets/bitget.png` (1061KB)
+## Files (compressed in repo):
+- `dist/index.cjs.gz` → `dist/index.cjs` (compiled server, 1.1MB)
+- `dist/public/assets/index-BpzWBTTq.js.gz` → `dist/public/assets/index-BpzWBTTq.js` (frontend bundle, 1.4MB)
 
-## To restore from VPS (root@104.207.70.184):
+## `dist/public/images/wallets/bitget.png` (1MB wallet logo — not in repo)
+Restore from VPS: `scp root@104.207.70.184:/root/flapfutures/dist/public/images/wallets/bitget.png dist/public/images/wallets/`
+
+## Quick start after clone:
 ```bash
-scp -r root@104.207.70.184:/root/flapfutures/dist/index.cjs ./dist/
-scp -r root@104.207.70.184:/root/flapfutures/dist/public/assets/index-BpzWBTTq.js ./dist/public/assets/
-scp -r root@104.207.70.184:/root/flapfutures/dist/public/images ./dist/public/
+npm install
+bash setup.sh
+NODE_ENV=production node dist/index.cjs
 ```
-
-## To rebuild server:
-See `script/build.ts` — run the esbuild command described in `replit.md`.
