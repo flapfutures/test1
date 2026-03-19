@@ -1,0 +1,51 @@
+modules = ["nodejs-20", "python-3.11", "postgresql-16"]
+[agent]
+expertMode = true
+integrations = ["github:1.0.0"]
+
+[nix]
+channel = "stable-25_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "NODE_ENV=production node dist/index.cjs"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["node", "dist/index.cjs"]
+
+[userenv]
+
+[userenv.shared]
+FFX_ORACLE = "0xBB4859Dca435fE68f78d6Aa647e75aD8a4fDAD6F"
+FFX_FUNDING = "0x551355B2998787EE963aC842252c87Afc5936bfE"
+FFX_FACTORY = "0xb86D9ae5321A2006788Ea5844C30064C57bE34CE"
+FFX_PLATFORM = "0xA415E0B30B8A52096dBC7efC622b8A3837812E5E"
+BSCSCAN_API_KEY = "NRR6JC838WJQHHC1ME1ANR4X7DWGIT4CCP"
+DEV88_PASSWORD = "@Gooddev123"
+FFX_TRADER_VAULT = "0x32d1AfeC2745F212d835f5e61eDF635e35CacAE5"
+FFX_MARKET_VAULT_TEMPLATE = "0xe7fccB34756773Dcc03E9BeEc4dFfB05bE27A197"
